@@ -1,0 +1,13 @@
+.btn {
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  background-color: #333C3B;
+  border: 2px solid #2F9CE9;
+  box-shadow: 2px 2px 2px #000;
+  margin-bottom: 1rem;
+  outline: none;
+  &:active {
+    box-shadow: 0px 0px 2px #000;
+  }
+}
