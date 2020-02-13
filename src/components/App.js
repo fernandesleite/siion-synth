@@ -1,7 +1,7 @@
 import React from "react";
 import * as Tone from "tone";
 
-import './Global.module.scss';
+import "./Global.module.scss";
 
 import OscillatorSection from "./Oscillator";
 class App extends React.Component {
@@ -15,13 +15,12 @@ class App extends React.Component {
     let osc = [this.state.oscOne, this.state.oscTwo];
     osc.forEach(o => {
       o.toMaster();
-      o.triggerAttackRelease(["C4"], "4n");
+      o.triggerAttackRelease(["C4", "E4", "G4"], "4n");
     });
   };
   componentDidMount = () => {
     Tone.context.resume();
   };
-  componentDidUpdate = () => {};
 
   getOscillator = (oscNum, osc) => {
     if (oscNum === 1) {

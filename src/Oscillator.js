@@ -14,11 +14,10 @@ class Oscillator extends React.Component {
     wave: "sine",
     unison: false,
     oscillator: new Tone.PolySynth(3, Tone.Synth, {
-      oscillator: {
-        type: "sine",
-        count: 3,
-        spread: 0,
-        volume: 0
+      "oscillator": {
+        "type" : "sine",
+        "count" : 3,
+        "spread" : 100
       }
     })
   };
@@ -26,6 +25,10 @@ class Oscillator extends React.Component {
   componentDidMount = () => {
     this.props.getOscillator(this.props.oscNumber, this.state.oscillator);
   };
+
+  componentDidUpdate = () => {
+    console.log("update render ")
+  }
 
   changeWaveform = () => {
     let nextIndex = waves.indexOf(this.state.wave) + 1;
@@ -56,10 +59,8 @@ class Oscillator extends React.Component {
     this.state.oscillator.set("detune", Number(value.toFixed(2)));
   };
   changeSpread = value => {
-    this.state.oscillator.voices.forEach(v => {
-      v.oscillator.spread = Math.round(value);
-    });
-  };
+    this.state.oscillator.set("spread", Math.round(value));
+  }
 
   render() {
     let leds = waves.map((wave, i) => (

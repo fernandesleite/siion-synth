@@ -10,7 +10,7 @@
     flex: 25% 0 0;
   }
   &__leds {
-    flex: 20% 0 0;
+    flex: 10% 0 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -21,15 +21,32 @@
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
+  &__knobWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 25% 0 0;
+    &:not(:first-child) {
+      margin-left: 5rem;
+    }
+  }
+  &__knobsSession {
+    margin-left: 5rem;
+    display: flex;
+
+  }
+  &__knob {
+    margin-left: 5rem;
+  }
 }
 
 .oscillator {
-  background-color: #333c3b;
+  background-color: #303534;
   margin-left: 2rem ;
-  width: 45%;
+  width: 50%;
   max-height: 100%;
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   display: inline-block;
 }
 
