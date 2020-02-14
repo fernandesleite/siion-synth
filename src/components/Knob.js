@@ -13,69 +13,48 @@ class Knob extends React.Component {
 
   componentDidMount = () => {
     let initialKnobPosition = (this.props.initialKnobPosition * 275) / 100;
-    this.knobEl.current.style.transform = `rotate(${initialKnobPosition}deg)`;
-    this.setState(
-      {
-        value:
-          ((Math.abs(this.props.min) + this.props.max) *
-            this.state.currentKnobPos) /
-            275 -
-          Math.abs(this.props.min)
-      },
-      () => {
-        this.props.callback(this.state.value);
-      }
-    );
-  };
+    this.knobEl.current.style.transform = `rotate(${initialKnobPosition}deg)`
+    this.setState({value: ((Math.abs(this.props.min) + this.props.max) * this.state.currentKnobPos / 275) - Math.abs((this.props.min))}, () => {
+      this.props.callback(this.state.value);
+    })
+    this.setState({activeTick: Math.round(initialKnobPosition / 10)});
+  }
   startDrag = e => {
     document.addEventListener("mousemove", this.onDrag, false);
     document.addEventListener("mouseup", this.endDrag, false);
-    this.setState({ initialMousePoint: e.clientY });
+    this.setState({initialMousePoint: e.clientY})
   };
   onDrag = e => {
     e.preventDefault();
-    let turn = this.state.initialMousePoint - e.clientY;
+    let turn = this.state.initialMousePoint - e.clientY
     let turningKnob = this.state.currentKnobPos + turn;
 
-    if (turningKnob <= 0) {
+    if(turningKnob <= 0){
       turningKnob = 0;
-    } else if (turningKnob >= 275) {
+    }
+    else if(turningKnob >= 275){
       turningKnob = 275;
     }
     this.props.callback(this.state.value);
+    let calc = ((Math.abs(this.props.min) + this.props.max) * turningKnob) / 275 - Math.abs(this.props.min);
+    calc = this.props.min <= 0 ? calc : Math.abs(calc);
     this.setState({
-      value:
-        ((Math.abs(this.props.min) + this.props.max) * turningKnob) / 275 -
-        Math.abs(this.props.min)
+      value: calc
     });
-    this.knobEl.current.style.transform = "rotate(" + turningKnob + "deg)";
-    this.setState({ activeTick: Math.round(turningKnob / 10) });
+    this.knobEl.current.style.transform = "rotate(" + (turningKnob) + "deg)";
+    this.setState({activeTick: Math.round(turningKnob / 10)});
   };
 
   endDrag = e => {
     document.removeEventListener("mousemove", this.onDrag, false);
     document.removeEventListener("mouseup", this.endDrag, false);
-    this.setState({
-      currentKnobPos: parseInt(
-        this.knobEl.current.style.transform.replace(/[^0-9]/g, "")
-      )
-    });
+    this.setState({currentKnobPos: parseInt(this.knobEl.current.style.transform.replace(/[^0-9]/g,''))})
   };
   render() {
     const Ticks = () => {
       let ticksArray = [];
       for (let i = 28; i > 0; i--) {
-        ticksArray.push(
-          <div
-            key={i}
-            id={i}
-            className={
-              this.state.activeTick >= i
-                ? `${style.tick} ${style.activetick}`
-                : style.tick
-            }
-          ></div>
-        );
+        ticksArray.push(<div key={i} id={i} className={this.state.activeTick >= i ? `${style.tick} ${style.activetick}` : style.tick}></div>);
       }
       return ticksArray;
     };

@@ -32,14 +32,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <OscillatorSection
-          getOscillator={this.getOscillator}
-          oscNumber={1}
-        ></OscillatorSection>
-        <OscillatorSection
-          getOscillator={this.getOscillator}
-          oscNumber={2}
-        ></OscillatorSection>
+        <OscillatorSection getOscillator={this.getOscillator} oscNumber={1} />
+        <OscillatorSection getOscillator={this.getOscillator} oscNumber={2} />
 
         <button onClick={this.playNote}>Play Test</button>
       </div>

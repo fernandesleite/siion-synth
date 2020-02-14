@@ -1,16 +1,11 @@
 .waveform {
   display: flex;
   align-items: center;
-  padding: 1rem 0;
-
-  &__btnWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 25% 0 0;
-  }
+  padding: .5rem 0;
+  
   &__leds {
-    flex: 10% 0 0;
+    flex: 5% 0 0;
+    margin-left: 2rem;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -21,22 +16,9 @@
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
-  &__knobWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 25% 0 0;
-    &:not(:first-child) {
-      margin-left: 5rem;
-    }
-  }
   &__knobsSession {
     margin-left: 5rem;
     display: flex;
-
-  }
-  &__knob {
-    margin-left: 5rem;
   }
 }
 
@@ -46,7 +28,45 @@
   width: 50%;
   max-height: 100%;
   color: #fff;
-  font-size: 1.2rem;
-  display: inline-block;
+  font-size: 1.22rem;
+  display: flex;
+  align-items: center;
 }
 
+.unison {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 25% 0 0;
+  margin-left: 4rem;
+}
+
+.inputVoices {
+  background-color: #484e4d;
+  width: 3rem;
+  color: #2F9CE9;
+  border: none;
+}
+.knobWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 25% 0 0;
+  &:not(:first-child) {
+    margin-left: 5rem;
+  }
+}
+
+.btnWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 25% 0 0;
+  margin-bottom: 1rem;
+}
+
+.waveImg {
+  width: 2rem;
+  margin-left: 1rem;
+}
