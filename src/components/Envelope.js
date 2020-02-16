@@ -1,6 +1,7 @@
 import React from "react";
-import * as Tone from "tone";
 import Knob from "./Knob";
+
+import style from "./Envelope.module.scss";
 
 class Envelope extends React.Component {
   state = {
@@ -8,55 +9,79 @@ class Envelope extends React.Component {
     decay: 0.2,
     sustain: 1,
     release: 0.8
-  }
-  componentDidMount = () => {this.sendEnvelope()}
-  
+  };
+  componentDidMount = () => {
+    this.props.getAmpValue(this.sendEnvelope());
+  };
 
   sendEnvelope = () => {
-    this.props.getEnvelope(new Tone.AmplitudeEnvelope({
+    return {
       attack: this.state.attack,
       decay: this.state.decay,
       sustain: this.state.sustain,
-      relase: this.state.release
-    }))
-  }
-  changeAttack = value => {
-    console.log(value);
-    this.setState({attack: value});
-    this.sendEnvelope();
+      release: this.state.release
+    };
   };
-  changeDecay = value => {};
+  changeAttack = value => {
+    this.setState({ attack: value });
+    this.props.getAmpValue(this.sendEnvelope());
+  };
+  changeDecay = value => {
+    this.setState({ decay: value });
+    this.props.getAmpValue(this.sendEnvelope());
+  };
 
-  changeSustain = value => {};
-  changeRelease = value => {};
+  changeSustain = value => {
+    this.setState({ sustain: value });
+    this.props.getAmpValue(this.sendEnvelope());
+  };
+  changeRelease = value => {
+    this.setState({ release: value });
+    this.props.getAmpValue(this.sendEnvelope());
+  };
 
   render() {
     return (
-      <div>
-        <Knob
-          min={0}
-          max={2}
-          callback={this.changeAttack}
-          initialKnobPosition={0}
-        />
-        <Knob
-          min={-127}
-          max={127}
-          callback={this.changeAttack}
-          initialKnobPosition={50}
-        />
-        <Knob
-          min={-127}
-          max={127}
-          callback={this.changeAttack}
-          initialKnobPosition={50}
-        />
-        <Knob
-          min={-127}
-          max={127}
-          callback={this.changeAttack}
-          initialKnobPosition={50}
-        />
+      <div className={style.container}>
+        <h2>Amplitude Envelope</h2>
+        <div className={style.envelope}>
+          <div className={style.knobWrapper}>
+            <Knob
+              min={0.1}
+              max={2}
+              callback={this.changeAttack}
+              initialKnobPosition={0}
+            />
+            <label>Attack</label>
+          </div>
+          <div className={style.knobWrapper}>
+            <Knob
+              min={1}
+              max={2}
+              callback={this.changeDecay}
+              initialKnobPosition={0}
+            />
+            <label>Decay</label>
+          </div>
+          <div className={style.knobWrapper}>
+            <Knob
+              min={1}
+              max={1}
+              callback={this.changeSustain}
+              initialKnobPosition={0}
+            />
+            <label>Sustain</label>
+          </div>
+          <div className={style.knobWrapper}>
+            <Knob
+              min={0.1}
+              max={4}
+              callback={this.changeRelease}
+              initialKnobPosition={0}
+            />
+            <label>Release</label>
+          </div>
+        </div>
       </div>
     );
   }

@@ -3,11 +3,16 @@ import * as Tone from "tone";
 
 import "./Global.module.scss";
 
+import style from "./App.module.scss";
+
 import OscillatorSection from "./Oscillator";
+import Envelope from "./Envelope";
+
 class App extends React.Component {
   state = {
     oscOne: {},
-    oscTwo: {}
+    oscTwo: {},
+    ampEnv: {}
   };
   playNote = () => {
     // var filter = new Tone.Filter(2000, "lowpass");
@@ -29,11 +34,25 @@ class App extends React.Component {
       this.setState({ oscTwo: osc });
     }
   };
+
+  getAmpValue = value => {
+    this.setState({ ampEnv: value });
+  };
   render() {
     return (
-      <div>
-        <OscillatorSection getOscillator={this.getOscillator} oscNumber={1} />
-        <OscillatorSection getOscillator={this.getOscillator} oscNumber={2} />
+      <div className={style.synth}>
+        <div className={style.bg}></div>
+        <div className={style.synth__top}>
+          <OscillatorSection getOscillator={this.getOscillator} ampEnv={this.state.ampEnv} oscNumber={1}/>
+          <OscillatorSection getOscillator={this.getOscillator} oscNumber={2} />
+        </div>
+        <div className={style.synth__middle}>
+
+        </div>
+        <div className={style.synth__bottom}>
+          <Envelope getAmpValue={this.getAmpValue} />
+          <Envelope getAmpValue={this.getAmpValue} />
+        </div>
 
         <button onClick={this.playNote}>Play Test</button>
       </div>

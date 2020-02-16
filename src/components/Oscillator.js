@@ -26,8 +26,12 @@ class Oscillator extends React.Component {
 
   componentDidMount = () => {
     this.props.getOscillator(this.props.oscNumber, this.state.oscillator);
-    console.log(this.state.oscillator.get("detune"));
+    this.state.oscillator.set({"envelope": this.props.ampEnv})
   };
+
+  componentDidUpdate = () => {
+    this.state.oscillator.set({"envelope": this.props.ampEnv});
+  }
 
   changeWaveform = () => {
     let nextIndex = waves.indexOf(this.state.wave) + 1;
@@ -56,21 +60,16 @@ class Oscillator extends React.Component {
   };
   changeDetune = value => {
     this.state.oscillator.set("detune", Number(value.toFixed(2)));
-    console.log(this.state.oscillator.get("detune"));
   };
   changeSpread = value => {
     this.state.oscillator.voices.forEach(v => {
-      console.log(v.oscillator.spread);
       v.oscillator.spread = Math.round(value);
-      console.log(v.oscillator.spread);
     });
   };
   changeCount = e => {
-    // console.log(e.target.value = e.target.value + 1);
     this.setState({ voices: e.target.value });
     this.state.oscillator.set("count", e.target.value);
     this.state.oscillator.voices.forEach(v => {
-      console.log(v.oscillator);
       v.oscillator.count = this.state.voices;
     });
   };
@@ -83,13 +82,24 @@ class Oscillator extends React.Component {
       </div>
     ));
     return (
-      <div>
+      <div className={style.container}>
         <h2>Oscillator {this.props.oscNumber}</h2>
         <div className={style.oscillator}>
           <div className={style.waveform}>
             <div className={style.btnWrapper}>
               <Button onClick={this.changeWaveform}></Button>
               <label>Waveform</label>
+              <input
+                id="dragnumber"
+                min="1"
+                max="5"
+                step="1"
+                type="number"
+                value={this.state.voices}
+                onChange={this.changeCount}
+                className={style.inputVoices}
+              ></input>
+              <label>Voices</label>
             </div>
             <div className={style.waveform__leds}>{leds}</div>
           </div>
@@ -97,7 +107,7 @@ class Oscillator extends React.Component {
             <div className={style.knobWrapper}>
               <Knob
                 value={200}
-                min={-64}
+                min={-75}
                 max={0}
                 callback={this.changeVolume}
                 initialKnobPosition={0}
@@ -131,17 +141,6 @@ class Oscillator extends React.Component {
                 <label>Unison</label>
                 <Led condition={this.state.unison} />
               </div>
-              <input
-                id="dragnumber"
-                min="1"
-                max="5"
-                step="1"
-                type="number"
-                value={this.state.voices}
-                onChange={this.changeCount}
-                className={style.inputVoices}
-              ></input>
-              <label>Voices</label>
             </div>
           </div>
         </div>

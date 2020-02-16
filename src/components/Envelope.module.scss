@@ -1,0 +1,28 @@
+.container {
+  padding: 0 1rem;
+  width: 50%;
+  height: 20rem;
+  clip-path: polygon(0 30%, 15% 0, 85% 0, 100% 30%, 100% 100%, 0 100%, 0 50%);
+
+}
+
+.envelope {
+  color: #fff;
+  font-size: 1.22rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+  
+}
+
+.knobWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 25% 0 0;
+  &:not(:first-child) {
+    margin-left: 5rem;
+  }
+}

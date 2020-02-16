@@ -14,7 +14,9 @@ class Knob extends React.Component {
   componentDidMount = () => {
     let initialKnobPosition = (this.props.initialKnobPosition * 275) / 100;
     this.knobEl.current.style.transform = `rotate(${initialKnobPosition}deg)`
-    this.setState({value: ((Math.abs(this.props.min) + this.props.max) * this.state.currentKnobPos / 275) - Math.abs((this.props.min))}, () => {
+    let calc = ((Math.abs(this.props.min) + this.props.max) * this.state.currentKnobPos / 275) - Math.abs((this.props.min));
+    calc = Math.sign(this.props.min) <= -1 ? calc : Math.abs(calc);
+    this.setState({value: calc}, () => {
       this.props.callback(this.state.value);
     })
     this.setState({activeTick: Math.round(initialKnobPosition / 10)});
@@ -37,7 +39,7 @@ class Knob extends React.Component {
     }
     this.props.callback(this.state.value);
     let calc = ((Math.abs(this.props.min) + this.props.max) * turningKnob) / 275 - Math.abs(this.props.min);
-    calc = this.props.min <= 0 ? calc : Math.abs(calc);
+    calc = Math.sign(this.props.min) <= -1 ? calc : Math.abs(calc);
     this.setState({
       value: calc
     });

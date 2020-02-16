@@ -1,7 +1,13 @@
+.container{
+  padding: 0 1rem;
+  height: 20rem;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 85%  100%, 15% 100%, 0 70%);
+  background-color: #444b49;
+}
+
 .waveform {
   display: flex;
   align-items: center;
-  padding: .5rem 0;
   
   &__leds {
     flex: 5% 0 0;
@@ -23,14 +29,13 @@
 }
 
 .oscillator {
-  background-color: #303534;
-  margin-left: 2rem ;
-  width: 50%;
+  // background-color: #303534;
   max-height: 100%;
   color: #fff;
   font-size: 1.22rem;
   display: flex;
   align-items: center;
+  
 }
 
 .unison {
@@ -39,7 +44,7 @@
   align-items: center;
   flex: 25% 0 0;
   margin-left: 4rem;
-}
+ }
 
 .inputVoices {
   background-color: #484e4d;
@@ -70,3 +75,4 @@
   width: 2rem;
   margin-left: 1rem;
 }
+
